@@ -1,5 +1,8 @@
 import numpy as np
 
 
-a = 'sfdd'
+a = 'sfdd asd '
 print(a)
+
+b = 'test git'
+print(b)

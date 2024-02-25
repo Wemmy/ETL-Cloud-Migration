@@ -1,9 +1,4 @@
- <div align="center">
-  <p>
-      <img src="https://github.com/Wemmy/yolov8_aimbot-main/blob/main/media/test.gif"></a>
-  </p>
-</div>
- 
+
  rem git clone
 
  cd 'to/your/path'

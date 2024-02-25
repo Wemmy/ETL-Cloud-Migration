@@ -21,3 +21,6 @@
  python ./utils/load.py
   
  streamlit run app.py -- -l True
+
+ echo sam deployment
+ cd sam-first-lambda

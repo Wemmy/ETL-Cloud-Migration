@@ -79,10 +79,11 @@ def daily_load():
             content = data.get('feed')
             # Serialize and store data
             serialized_data = json.dumps(content)
-            if r.exists(t):
-                r.append(t, serialized_data)
-            else:
-                r.set(t, serialized_data)
+            if serialized_data is not None:
+                if r.exists(t):
+                    r.append(t, serialized_data)
+                else:
+                    r.set(t, serialized_data)
 
 
 

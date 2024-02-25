@@ -1,5 +1,5 @@
 import streamlit as st
-import page1_local,page1
+import page1
 import page2
 import argparse
 import efficient_frontier
@@ -12,7 +12,7 @@ parser.add_argument("-l", "--local", help="if this is local development", defaul
 args = parser.parse_args()
 
 if args.local:
-
+    import page1_local
     PAGES = {
         "Market Overview": page1_local,
         "Stock Performance": page2,
@@ -22,7 +22,8 @@ if args.local:
 else:
     PAGES = {
         "Market Overview": page1,
-        "Stock Performance": page2
+        "Stock Performance": page2,
+        "Efficient Frontier": efficient_frontier
     }
 
 st.sidebar.title('Navigation')

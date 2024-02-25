@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.PostgreDB.db_connect import create_connection
+from local_deployment.utils.PostgreDB.db_connect import create_connection
 import pandas as pd
 from plotly import graph_objs as go
 from datetime import datetime,timedelta
@@ -7,11 +7,12 @@ import yfinance as yf
 import os
 from dotenv import load_dotenv
 load_dotenv()
-from utils.utils import show_news
+from local_deployment.utils.utils import show_news
+from local_deployment.utils.redis.utils import sort_data
 
 def app():
     # Layout
-    st.title("Markets Data Dashboard")
+    st.title("Market Data Dashboard")
     # Function to fetch data
     @st.cache_data
     def get_data(ticker, start, end):
@@ -155,7 +156,7 @@ def app():
     # Dropdown menu for topic selection
     selected_topic = st.selectbox("Choose a News Topic", topics, index=0)
 
-    from utils.redis.utils import sort_data
+    
     news = sort_data(selected_topic)
 
     # Slice to get [1, 3, 5] and [2, 4, 6]

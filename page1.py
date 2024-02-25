@@ -1,5 +1,5 @@
 import streamlit as st
-from utils.PostgreDB.db_connect import create_connection
+
 import pandas as pd
 from plotly import graph_objs as go
 from datetime import datetime,timedelta
@@ -7,12 +7,14 @@ import yfinance as yf
 import os
 from dotenv import load_dotenv
 load_dotenv()
-from utils.utils import show_news
+from local_deployment.utils.PostgreDB.db_connect import create_connection
+from local_deployment.utils.utils import show_news
+from local_deployment.utils.dynamodb.db_connect import get_topic_data_sorted, get_data_from_dynamodb
 
 
 def app():
-    # Layout
-    st.title("Markets Data Dashboard")
+    # # Layout
+    st.title("Market Overview")
     # Function to fetch data
     @st.cache_data
     def get_data(ticker, start, end):
@@ -136,7 +138,7 @@ def app():
     # Show the plot in Streamlit
     st.plotly_chart(fig, use_container_width=True)
 
-    from utils.dynamodb.db_connect import get_topic_data_sorted, get_data_from_dynamodb
+    
     table_name = 'dashboard_news'
     items, topics = get_data_from_dynamodb(table_name)
     st.header("News")

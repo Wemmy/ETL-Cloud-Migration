@@ -9,7 +9,7 @@ from plotly import graph_objs as go
 import requests
 
 def app():
-    # st.title('Page 2')
+    st.title('Stock Information')
     # st.write("This is Page 2")
 
     # Setting time constraint

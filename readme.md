@@ -31,6 +31,7 @@ This project emphasizes a comprehensive cloud migration strategy, transitioning 
 - python
 - streamlit
 - docker
+- airflow
 - AWS-SAM (lambda function development)
 
 ## To Replicate

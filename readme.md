@@ -82,9 +82,9 @@ For transformation and load, we use AWS web UI to set GLUE and lambda function.
 - GLUE:
   - [transform.py](https://github.com/Wemmy/ETL-Cloud-Migration/blob/main/aws_deployment/transform.py): tirggerred by GLUE Scheduled Trigger
 - Lambda
-  - [end_load](https://github.com/Wemmy/ETL-Cloud-Migration/blob/main/aws_deployment/end_load.py): triggerred by S3 put event
-  - [merics_load](https://github.com/Wemmy/ETL-Cloud-Migration/blob/main/aws_deployment/merics_load.py): triggerred by EventBridge (Cloud Watch Event)
-  - [news_load](https://github.com/Wemmy/ETL-Cloud-Migration/blob/main/aws_deployment/news_load.py): triggerred by S3 put event
+  - [end_load.py](https://github.com/Wemmy/ETL-Cloud-Migration/blob/main/aws_deployment/end_load.py): triggerred by S3 put event
+  - [merics_load.py](https://github.com/Wemmy/ETL-Cloud-Migration/blob/main/aws_deployment/merics_load.py): triggerred by EventBridge (Cloud Watch Event)
+  - [news_load.py](https://github.com/Wemmy/ETL-Cloud-Migration/blob/main/aws_deployment/news_load.py): triggerred by S3 put event
 
 > [!NOTE]
 > We currently use psycopg2 for load csv data which may not be the best practice. If you decide to follow this please configure your connection accordingly.

@@ -1,0 +1,12 @@
+__pycache__
+wen_min*
+.venv
+.vscode
+data
+excalidraw
+local_deployment
+sam-frist-lambda
+mean_variance_optimization
+command.bat
+readme.md
+.log

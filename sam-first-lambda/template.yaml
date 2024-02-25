@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-first-lambda
+
+  Sample SAM Template for sam-first-lambda
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 60
+
+Resources:
+  DataDownloadFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: data_download/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          S3_BUCKET_NAME: dashboard-team-bucket-1
+      Policies:
+        - S3CrudPolicy:
+            BucketName: dashboard-team-bucket-1
+      Events:
+        CronJobEvent:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 22 * * ? *)
+            Enabled: True
+
+Outputs:
+  DataDownloadFunction:
+    Description: The ARN of the Lambda function
+    Value: !GetAtt DataDownloadFunction.Arn

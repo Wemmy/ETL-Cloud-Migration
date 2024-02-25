@@ -1,0 +1,11 @@
+.env
+.conf
+.venv
+.vscode
+.csv
+__pycache__
+mean_variance_optimization/
+wen_min*
+data/
+*.excalidraw
+local_deployment/airflow/logs/

@@ -53,13 +53,13 @@ docker-compose -f local_deployment/docker-compose.yaml up airflow-init
 docker-compose -f local_deployment/docker-compose.yaml up -d
 
 echo extract data
-python ./utils/extract.py
+python local_deployment/extract.py
 
 echo transform data
-python ./utils/transform.py
+python local_deployment/transform.py
 
 echo load data to local
-python ./utils/load.py
+python local_deployment/load.py
 
 streamlit run app.py -- -l True
 

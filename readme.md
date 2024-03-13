@@ -62,9 +62,14 @@ echo load data to local
 python local_deployment/load.py
 
 streamlit run app.py -- -l True
-
-
 ```
+
+# Airflow
+
+Two cadences:
+
+- daily udpate for EOD price and news
+- Monthly update for economic indicators and stock statements
 
 # AWS Deployment:
 
@@ -89,7 +94,7 @@ For transformation and load, we use AWS web UI to set GLUE and lambda function.
 
 > [!NOTE]
 > We currently use psycopg2 for load csv data which may not be the best practice. If you decide to follow this please configure your connection accordingly.
-> GLUE uses [DynamicFrame](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-crawler-pyspark-extensions-dynamic-frame.html) which may not suitable for dealing with Json data. We convert back and forth between DynamicFrame and Spark Datafram for transformation, which may not be the ideal use case
+> GLUE uses [DynamicFrame](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-crawler-pyspark-extensions-dynamic-frame.html) which may not suitable for dealing with Json data and RDS instance. We convert back and forth between DynamicFrame and Spark Datafram for transformation, which may not be the ideal use case
 
 Dockernize the app and deploy on EC2
 
@@ -97,3 +102,39 @@ Dockernize the app and deploy on EC2
 docker build -t streamlit .
 docker run -p 8501:8501 streamlit
 ```
+
+# EC2 Deployment
+
+- Prepare Your EC2 Instance
+
+  - install docker (example by Ubuntu)
+
+  ```cmd
+  sudo apt-get update
+  sudo apt-get install docker.io
+  sudo systemctl start docker
+  sudo systemctl enable docker
+  sudo usermod -aG docker ${USER}
+  ```
+
+  - install Aws cli following this [link](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+  - config your aws config
+
+- Pull the Docker Image
+  aws ecr get-login-password --region your-region | docker login --username AWS --password-stdin your-account-id.dkr.ecr.your-region.amazonaws.com
+  Replace your-region with your AWS region (e.g., us-west-2) and your-account-id with your AWS account ID.
+
+Once authenticated, pull the Docker image from ECR using:
+
+bash
+Copy code
+docker pull your-account-id.dkr.ecr.your-region.amazonaws.com/your-repository-name:your-tag
+Replace your-repository-name with the name of your repository in Amazon ECR and your-tag with the tag of the image you want to pull. If you don’t specify a tag, Docker will pull the latest tag by default.
+
+6. Run the Docker Image (Optional)
+   After pulling the image, you can run it on your EC2 instance using:
+
+bash
+Copy code
+docker run -d -p localPort:containerPort your-account-id.dkr.ecr.your-region.amazonaws.com/your-repository-name:your-tag
+Replace localPort with the port on your EC2 instance you want to bind, containerPort with the port your application runs on within the Docker container, and adjust other details as necessary.

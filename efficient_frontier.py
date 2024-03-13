@@ -22,7 +22,7 @@ def app():
     today = date.today().strftime('%Y-%m-%d')
 
     # Adding title, sidebar, etc
-    st.title('Minimum Viable Product')
+    st.title('Mean Variance Optimization')
 
     # List of available stocks
     stocks = ['MSFT', 'AAPL', 'GOOG', 'AMZN', 'NVDA',  'META', 'TSLA', 'AMD', 'GME', 'CSCO']

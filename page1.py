@@ -13,6 +13,7 @@ from local_deployment.utils.dynamodb.db_connect import get_topic_data_sorted, ge
 
 
 def app():
+
     # # Layout
     st.title("Market Overview")
     # Function to fetch data
@@ -78,7 +79,7 @@ def app():
     # Economic indicators available for selection
     indicators = ['gdp', 'cpi', 'durables', 'fed_fund_rate', 'gdp_per_capita',
                 'inflation', 'nonfarm-payroll', 'retail_sales', 'treasury_yield', 'unemployment']
-    
+
     indicator_units = {
         'gdp':'billions of dollars', 
         'cpi':'index', 
@@ -138,14 +139,14 @@ def app():
     # Show the plot in Streamlit
     st.plotly_chart(fig, use_container_width=True)
 
-    
+
     table_name = 'dashboard_news'
     items, topics = get_data_from_dynamodb(table_name)
     st.header("News")
     # Dropdown menu for topic selection
     selected_topic = st.selectbox("Choose a News Topic", topics, index=0)
     news = get_topic_data_sorted(items,selected_topic)
-    
+
     # Slice to get [1, 3, 5] and [2, 4, 6]
     news_odd = [news[i] for i in range(10) if i % 2 == 0]
     news_even = [news[i] for i in range(10) if i % 2 != 0]

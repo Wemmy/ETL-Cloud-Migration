@@ -1,6 +1,7 @@
 import streamlit as st
 import page1
 import page2
+import page3
 import argparse
 import efficient_frontier
 
@@ -15,16 +16,21 @@ if args.local:
     import page1_local
     PAGES = {
         "Market Overview": page1_local,
-        "Stock Performance": page2,
+        "Stock Performance": page3,
         "Efficient Frontier": efficient_frontier
     }
 
 else:
     PAGES = {
         "Market Overview": page1,
-        "Stock Performance": page2,
+        "Stock Performance": page3,
         "Efficient Frontier": efficient_frontier
     }
+
+st.set_page_config(
+    page_title="Hello",
+    page_icon="👋",
+)
 
 st.sidebar.title('Navigation')
 selection = st.sidebar.radio("Go to", list(PAGES.keys()))

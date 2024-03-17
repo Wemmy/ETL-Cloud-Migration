@@ -134,7 +134,8 @@ def app():
                         st.write("5 Years:", change_ratio.get("5Y"))
 
                 # Fetch and display liquidity ratios
-                show_liquidity_ratios = st.button("Show Liquidity Ratios")
+                help_text_liquidity_ratio = '''Liquidity ratios measure a company's ability to pay debt obligations and its margin of safety through the calculation of metrics including the current ratio, quick ratio, and operating cash flow ratio.'''
+                show_liquidity_ratios = st.button("Show Liquidity Ratios", help=help_text_liquidity_ratio)
                 if show_liquidity_ratios:
                 # Fetch and display liquidity ratios
                     liquidity_ratios = fetch_ratios_ttm(ticker)
@@ -152,7 +153,8 @@ def app():
 
                     
                 # Fetch and display solvency ratios
-                show_solvency_ratios = st.button("Show Solvency Ratios")
+                help_text_liquidity_ratio = '''A solvency ratio examines a firm's ability to meet its long-term debts and obligations. The main solvency ratios include the debt-to-assets ratio, the interest coverage ratio, the equity ratio, and the debt-to-equity (D/E) ratio.'''
+                show_solvency_ratios = st.button("Show Solvency Ratios", help = help_text_liquidity_ratio)
                 if show_solvency_ratios:
                     solvency_ratios = fetch_ratios_ttm(ticker)
                     if solvency_ratios is not None:
@@ -193,7 +195,7 @@ def app():
                     else:
                         st.error(f"No rating data available for {ticker}.")
         
-            st.title('Income Statement')
+            st.title('Income Statement', help='''The income statement focuses on the revenue, expenses, gains, and losses reported by a company during a particular period.''')
             # Function to retrieve income statement data
             def get_income_data(stock):
                 base_url = 'https://financialmodelingprep.com/api'
@@ -244,8 +246,8 @@ def app():
                 )
 
                 st.plotly_chart(fig)
-
-            st.title('Financial health')
+            help_text_asset_liability = '''We mesure financial health by comparing assets and liability. '''
+            st.title('Financial health', help=help_text_asset_liability)
             def get_health_data(stock):
                 base_url = 'https://financialmodelingprep.com/api'
                 data_type = 'balance-sheet-statement'

@@ -120,21 +120,27 @@ docker run -p 8501:8501 streamlit
   - install Aws cli following this [link](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
   - config your aws config
 
+  ```cmd
+  aws configure
+  ```
+
 - Pull the Docker Image
+  ```cmd
   aws ecr get-login-password --region your-region | docker login --username AWS --password-stdin your-account-id.dkr.ecr.your-region.amazonaws.com
+  ```
   Replace your-region with your AWS region (e.g., us-west-2) and your-account-id with your AWS account ID.
 
 Once authenticated, pull the Docker image from ECR using:
 
-bash
-Copy code
+```cmd
 docker pull your-account-id.dkr.ecr.your-region.amazonaws.com/your-repository-name:your-tag
+```
 Replace your-repository-name with the name of your repository in Amazon ECR and your-tag with the tag of the image you want to pull. If you don’t specify a tag, Docker will pull the latest tag by default.
 
 6. Run the Docker Image (Optional)
    After pulling the image, you can run it on your EC2 instance using:
 
-bash
-Copy code
-docker run -d -p localPort:containerPort your-account-id.dkr.ecr.your-region.amazonaws.com/your-repository-name:your-tag
+```cmd
+docker run -d -p localPort:8501 your-account-id.dkr.ecr.your-region.amazonaws.com/your-repository-name:your-tag
+```
 Replace localPort with the port on your EC2 instance you want to bind, containerPort with the port your application runs on within the Docker container, and adjust other details as necessary.

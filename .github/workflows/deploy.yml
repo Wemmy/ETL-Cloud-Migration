@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build Image
+    name: Build and push Image
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -26,7 +26,23 @@ jobs:
         env:
           ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
-          IMAGE_TAG: streamlit
+          IMAGE_TAG: streamlit_action
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      # - name: SSH and Update Docker container on EC2
+      #   uses: appleboy/ssh-action@master
+      #   env:
+      #     ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+      #     ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+      #     IMAGE_TAG: streamlit_action
+      #     CONTAINER_NAME: dashboard
+      #   with:
+      #     host: ${{ secrets.EC2_HOST }}
+      #     username: ${{ secrets.EC2_USERNAME }}
+      #     key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+      #     script: |
+      #       docker pull $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      #       docker stop $CONTAINER_NAME || true
+      #       docker rm $CONTAINER_NAME || true
+      #       docker run --name $CONTAINER_NAME -d $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG

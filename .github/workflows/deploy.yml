@@ -3,7 +3,7 @@ name: Deploy Streamlit App to ECR # name
 
 on:
   push:
-    paths-ignore::
+    paths-ignore:
       - "readme.md"
       - ".github/workflows/**"
     branches: # the branch to be deployed

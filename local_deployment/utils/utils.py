@@ -1,5 +1,6 @@
 
 import streamlit as st
+import re
 
 # Function to determine color based on sentiment score
 def get_color(sentiment_score):
@@ -32,5 +33,5 @@ def show_news(list_news, number_of_news_per_column = 2):
             f"<span style='display: inline-block; border: 1px solid #ddd; padding: 5px 10px; border-radius: 5px; background-color: {color};'>{data['overall_sentiment_label']}</span>",
             unsafe_allow_html=True
         )
-        st.markdown(data['summary'])  # Display HTML content
+        st.markdown(re.sub(r'(?<!\$)\$(?!\$)', r'\$', data['summary']))  # Display HTML content
         i+=1
